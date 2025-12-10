@@ -28,6 +28,8 @@ func Q1() {
 	fmt.Println(x, y)
 }
 
+// ----------------------------------------------------------------------------------------//
+
 // Q2
 // Create a struct called Rectangle and a method called Area
 // and the code that goes with it to calculate the area of the rectangle
@@ -49,6 +51,8 @@ func Q2() {
 	fmt.Println("Area:", rect.Area())
 
 }
+
+// ----------------------------------------------------------------------------------------//
 
 // Q3
 // Write a function to count the words in the text that is passed to the function
