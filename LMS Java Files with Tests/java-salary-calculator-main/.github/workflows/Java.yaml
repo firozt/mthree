@@ -1,0 +1,44 @@
+name: SalaryCalculator
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+jobs:
+  build:
+    runs-on: [self-hosted]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: maven
+    - name: Set up Maven
+      uses: stCarolas/setup-maven@v5
+      with:
+        maven-version: 3.8.2
+    - name: Build with Maven
+      run: mvn -B package --file EmployeeSalaryCalculator/pom.xml
+
+  update-readme:
+    runs-on: [self-hosted]
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+    - name: Configure Git
+      run: |
+        git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+        git config --global user.name "${{ github.actor }}"
+    - name: Update README 
+      run: |
+        if grep -F 'badge.svg' README.md
+        then
+            echo "link exists do nothing"
+        else
+            sed -i '1s;^;### Assignment Status:  ![](https://github.com/${{github.repository}}/workflows/${{github.workflow}}/badge.svg)\n;' README.md
+            git add README.md
+            git commit -m "Update README"
+            git push origin main
+        fi
