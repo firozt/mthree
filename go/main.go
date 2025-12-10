@@ -6,10 +6,13 @@ import (
 )
 
 func main() {
+	// calls all questions
 	Q1()
 	Q2()
 	Q3()
 }
+
+// ----------------------------------------------------------------------------------------//
 
 // Q1
 // Create a function called swap to swap the values of two integers using pointers
